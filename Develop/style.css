@@ -1,3 +1,8 @@
+header {
+  text-align: center;
+  border-bottom: .5rem solid black;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
