@@ -13,7 +13,7 @@ users task or event so they will be able to see it whent the application is refr
 
 The following image demonstrates the web application's appearance and functionality:
 
-![Screenshot of Coding-Quiz](./assets/images/WorkDayCalpic.PNG)
+![Screenshot of Work Day Calendar](./assets/images/WorkDayCalpic.PNG)
 
 
 ## The URL of the deployed application:
