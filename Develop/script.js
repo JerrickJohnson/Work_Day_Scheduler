@@ -1,44 +1,4 @@
-// var saveButtonEl = document.querySelectorAll('.saveBtn');
-// appointmentEl = document.getElementById('schedule');
-// var hourOfDay = document.getElementById('hour');
-var containerEl = document.getElementById('container')
-
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-
-
-
-
-
-
-
-let hoursInDay = '';
-
-var curTime = dayjs().format('hA');
-// var lastHr = dayjs('').format('ha');
-
-var timeArray = ['7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM'];
-
-
-// .then(function (response) {
-//   return response.json();
-// })
-
-
-
 $(document).ready(function () {
-  // var text = document.getElementById('taskIn').value;
-  
-  // console.log(text);
-  // console.log(hrTime);
-  // localStorage.setItem("taskToDo", JSON.stringify(text));
-
-  // if(e.click && text.val() != "") && (hrTime <= timeArray[i]) {
-  //   var task = 
-
-  // }
-
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -47,13 +7,17 @@ $(document).ready(function () {
   // useful when saving the description in local storage?
   //
   
-for (var i = 0; i < timeArray.length; i++) {
-
-  // var hourTime = dayjs(timeArray[i], 'HA');
-  var hourTime = dayjs('timeArray[i]');
-  // var hourTime = timeArray[i];
-  console.log(timeArray[i]);
-  var classPFP = '';
+  var timeBlock = [
+    {id: 'hour-9', hour: 9},
+    {id: 'hour-10', hour: 10},
+    {id: 'hour-11', hour: 11},
+    {id: 'hour-12', hour: 12},
+    {id: 'hour-13', hour: 13},
+    {id: 'hour-14', hour: 14},
+    {id: 'hour-15', hour: 15},
+    {id: 'hour-16', hour: 16},
+    {id: 'hour-17', hour: 17},
+  ];
 
     // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
@@ -61,61 +25,55 @@ for (var i = 0; i < timeArray.length; i++) {
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
   //
+
+  $(".saveBtn").on("click", function() {
+    var blockId = $(this).parent().attr("id");
+    var data = $("#" + blockId + " .description").val();
+    localStorage.setItem(blockId, data);
+  })
+
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
   //
-  // if (hourTime < (curTime, 'hour')) {
-  if (hourTime.isBefore(curTime, 'hour')) {
-    classPFP = 'past';
-  } else if (hourTime.isSame(curTime, 'hour')) {
-    classPFP = 'present';
-  }else {
-    classPFP = 'future';
-  }
-  console.log(hourTime);
-  console.log(curTime);
-  console.log(classPFP);
- 
-  hoursInDay += `<div id="hour-${i}" class="row time-block ${classPFP}">
-  <div class="col-2 col-md-1 hour text-center py-3">${timeArray[i]}</div>
-  <textarea id="taskIn=${i}" class="col-8 col-md-10 description" rows="3"></textarea>
-  <button class="btn saveBtn col-2 col-md-1" aria-label="save" data-hour="${i}">
-    <i class="fas fa-save" aria-hidden="true"></i>
-  </button>
-</div>`;
 
-containerEl.innerHTML = hoursInDay;
-}
+  function updateTimeBlock() {
+    var curHour = dayjs().hour();
+
+    timeBlock.forEach(function(block) {
+      if (block.hour < 9 || block.hour > 17) {
+      }else if (block.hour < curHour) {
+        $("#" + block.id).removeClass("present future").addClass("past");
+      }else if (block.hour === curHour) {
+        $("#" + block.id).removeClass("past future").addClass("present");
+      }else {
+        $("#" + block.id).removeClass("past present").addClass("future");
+      }
+    });
+  }
+
+  updateTimeBlock();
+
+  setInterval(updateTimeBlock, 10 * 60 * 1000);
 
  // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
   
-  // $(".btn").on("click",function (e) {
-
-  var saveButton = document.querySelectorAll('.saveBtn');
-
-  saveButton.forEach(function(saveBtn) {
-
-    saveBtn.addEventListener('click', function() {
-      var hour = this.getAttribute('data-hour');
-
-      var task = document.querySelector(`#taskIn-${hour}`).value;
-
-      console.log(`Saved task "${task}" for hour ${timeArray[hour]}`);
-    });
-  });
+timeBlock.forEach(function(block) {
+  var savedTask = localStorage.getItem(block.id);
+  if (savedTask) {
+    $("#" + block.id + " .description").val(savedTask);
+  }
+})
 
   // TODO: Add code to display the current date in the header of the page.
 
   var curDate = dayjs().format('dddd MMMM YYYY');
   $('#currentDay').text(curDate);
-
-
 });
 
 
