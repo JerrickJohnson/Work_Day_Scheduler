@@ -13,13 +13,13 @@ users task or event so they will be able to see it whent the application is refr
 
 The following image demonstrates the web application's appearance and functionality:
 
-![Screenshot of Coding-Quiz](./assets/images/Code-QuizPic.PNG)
+![Screenshot of Coding-Quiz](./assets/images/WorkDayCalpic.PNG)
 
 
 ## The URL of the deployed application:
 
-https://jerrickjohnson.github.io/Coding-Quiz/
+https://jerrickjohnson.github.io/Work_Day_Scheduler/
 
 ## The URL of the GitHub repository:
 
-https://github.com/JerrickJohnson/Coding-Quiz.git
+https://github.com/JerrickJohnson/Work_Day_Scheduler.git
